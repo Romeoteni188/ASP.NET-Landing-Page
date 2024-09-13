@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clonar el repositorio
-                git 'https://github.com/Romeoteni188/ASP.NET-Landing-Page.git'
+                git branch: 'main',git 'https://github.com/Romeoteni188/ASP.NET-Landing-Page.git'
             }
         }
         stage('Build Docker Image') {
