@@ -11,6 +11,18 @@ RUN dotnet restore
 COPY . .
 RUN dotnet publish -c Release -o /out
 
+# Instalar Wine y otras dependencias necesarias para Dotfuscator
+RUN apt-get update && apt-get install -y wine64 wine32 unzip wget
+
+# Descargar Dotfuscator (reemplaza con la URL de descarga válida)
+WORKDIR /dotfuscator
+RUN wget -O dotfuscator.zip "URL_DE_DESCARGA_DOTFUSCATOR" && \
+    unzip dotfuscator.zip
+
+# Ofuscar la aplicación usando Dotfuscator
+RUN wine /dotfuscator/Dotfuscator.exe /in:/out/Indotalent.dll /out:/out/Obfuscated.dll
+
+
 # Usar la imagen base de ASP.NET para ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
@@ -20,4 +32,6 @@ COPY --from=build /out .
 EXPOSE 90
 
 # Comando para ejecutar la aplicación
-ENTRYPOINT ["dotnet", "Indotalent.dll"]
+# ENTRYPOINT ["dotnet", "Indotalent.dll"]
+# Comando para ejecutar la aplicación ofuscada
+ENTRYPOINT ["dotnet", "Obfuscated.dll"]
