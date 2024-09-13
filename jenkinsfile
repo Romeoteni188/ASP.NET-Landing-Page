@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clonar el repositorio
+                git 'https://github.com/Romeoteni188/ASP.NET-Landing-Page.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Construir la imagen Docker
+                    sh 'docker build -t aspnet-landing-page .'
+                }
+            }
+        }
+        stage('Run Container') {
+            steps {
+                script {
+                    // Ejecutar el contenedor en el puerto 90
+                    sh 'docker run -d -p 90:80 --name aspnet-landing-page aspnet-landing-page'
+                }
+            }
+        }
+        stage('Run Unit Tests') {
+            steps {
+                script {
+                    // Ejecutar pruebas unitarias
+                    sh 'dotnet test --logger:trx;LogFileName=test_results.xml'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Limpiar contenedor después de la ejecución
+            script {
+                sh 'docker stop aspnet-landing-page || true'
+                sh 'docker rm aspnet-landing-page || true'
+            }
+        }
+        cleanup {
+            // Limpiar imágenes no utilizadas
+            script {
+                sh 'docker rmi aspnet-landing-page || true'
+            }
+        }
+    }
+}
