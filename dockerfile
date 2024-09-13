@@ -12,7 +12,7 @@ COPY . .
 RUN dotnet publish -c Release -o /out
 
 # Instalar Wine y otras dependencias necesarias para Dotfuscator
-RUN apt-get update && apt-get install -y wine64 wine32 unzip wget
+RUN apt-get update && apt-get install -y wine64 libwine unzip wget
 
 # Descargar Dotfuscator (reemplaza con la URL de descarga válida)
 WORKDIR /dotfuscator

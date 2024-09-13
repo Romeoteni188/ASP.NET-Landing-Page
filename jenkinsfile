@@ -37,8 +37,8 @@ pipeline {
         always {
             // Esperar 5 minutos antes de detener y eliminar el contenedor
             script {
-                echo 'Esperando 5 minutos antes de destruir el contenedor...'
-                sleep 300  // Espera de 300 segundos (5 minutos)
+                // echo 'Esperando 5 minutos antes de destruir el contenedor...'
+                // sleep 300  // Espera de 300 segundos (5 minutos)
                 
                 // Detener y eliminar el contenedor después de la espera
                 sh 'docker stop aspnet-landing-page || true'
