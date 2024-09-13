@@ -20,7 +20,8 @@ pipeline {
                 script {
                     // Ejecutar el contenedor en el puerto 90
                     sh 'docker run -d -p 90:80 --name aspnet-landing-page aspnet-landing-page'
-                }
+                }      
+
             }
         }
         stage('Run Unit Tests') {
