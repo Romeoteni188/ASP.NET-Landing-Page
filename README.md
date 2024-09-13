@@ -13,5 +13,27 @@ If you like this work.
 # License
 ASP.NET Landing Page is based on Startup HTML template from HTMLCODEX [LICENSE](LICENSE).
 
+***
+# para contenerizar
 
 
+* crear la imagen
+docker build -t aspnet-landing-page .
+* ejecutarlo
+docker run -d -p 90:8080 --name aspnet-landing-page aspnet-landing-page
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ASP.NET-Landing-Page
